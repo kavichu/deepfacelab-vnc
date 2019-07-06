@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  deepfacelab:
+    image: ubuntu:deepfacelab
+    build: .
+    volumes:
+      - ./deepfacelab-workspace:/workspace/DeepFaceLab_Linux/workspace/
+    env_file: .env
+    restart: always
+    networks:
+      - back-end
+
+  nginx:
+    image: nginx:1.15.2
+    container_name: nginx
+    depends_on:
+      - deepfacelab
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - /home/ec2-user/.letsencrypt/:/etc/letsencrypt:ro
+      - ./logs:/var/log/nginx/
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    networks:
+      - back-end
+
+networks:
+  back-end:
+    external:
+      name: back-end
