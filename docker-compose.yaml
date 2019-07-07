@@ -1,7 +1,9 @@
-version: "3.7"
+version: "2.3"
+
 services:
   deepfacelab:
     image: ubuntu:deepfacelab
+    runtime: nvidia
     build: .
     volumes:
       - ./deepfacelab-workspace:/workspace/DeepFaceLab_Linux/workspace/

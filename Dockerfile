@@ -57,8 +57,9 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_6
     find /opt/conda/ -follow -type f -name '*.a' -delete && \
     find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
     /opt/conda/bin/conda clean -afy
+RUN apt-get install -y ffmpeg
 
-RUN git clone https://github.com/lbfs/DeepFaceLab_Linux.git /workspace/DeepFaceLab_Linux
+RUN git clone https://github.com/lvlds/DeepFaceLab.git /workspace/DeepFaceLab_Linux
 
 WORKDIR /workspace/DeepFaceLab_Linux
 ENV HOME=/workspace/DeepFaceLab_Linux \
